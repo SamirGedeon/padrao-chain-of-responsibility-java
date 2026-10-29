@@ -1,0 +1,43 @@
+classDiagram
+    class Main {
+        +main(String[])
+        +criarFluxoPadrao() Atendente
+    }
+    class Solicitacao {
+        -int protocolo
+        -Categoria categoria
+        -String descricao
+        -String responsavel
+        -boolean atendida
+        +getProtocolo() int
+        +getCategoria() Categoria
+        +getResponsavel() String
+        +isAtendida() boolean
+    }
+    class Atendente {
+        <<abstract>>
+        -Atendente proximo
+        +definirProximo(Atendente) Atendente
+        +atender(Solicitacao) boolean
+        #podeAtender(Solicitacao) boolean
+        #processar(Solicitacao)
+    }
+    class SuporteSenha
+    class SuporteTecnico
+    class SuporteFinanceiro
+    class SuporteGeral
+    class Categoria {
+        <<enumeration>>
+        SENHA
+        TECNICA
+        FINANCEIRA
+        OUTRA
+    }
+    Atendente o--> Atendente : próximo elo
+    Atendente <|-- SuporteSenha
+    Atendente <|-- SuporteTecnico
+    Atendente <|-- SuporteFinanceiro
+    Atendente <|-- SuporteGeral
+    Atendente --> Solicitacao : avalia e processa
+    Solicitacao --> Categoria
+    Main --> Atendente : monta cadeia e inicia
